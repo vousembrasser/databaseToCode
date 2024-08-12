@@ -20,6 +20,9 @@ public class Field {
     private String key;
     private String extra;
     private String comment;
+    private String collationName;
+    private String isNullable;
+    private String columnDefault;
 
     private String fieldNameCamel;
     private String fieldClass;

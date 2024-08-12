@@ -17,10 +17,13 @@ public enum JavaTypeConstant {
     DECIMAL("DECIMAL", "java.math.BigInteger"),
     VARCHAR("VARCHAR", "String"),
     TEXT("TEXT", "String"),
-    DATETIME("DATETIME", "java.time.LocalDateTime"),
+    DOUBLE("DOUBLE","Double"),
+//    DATETIME("DATETIME", "java.time.LocalDateTime"),
+    DATETIME("DATETIME", "java.util.Date"),
     DATE("DATE", "java.time.LocalDateTime"),
     TIME("TIME", "java.time.LocalDateTime"),
-    DATETIMEV2("DATETIMEV2", "java.time.LocalDateTime");
+//    DATETIMEV2("DATETIMEV2", "java.time.LocalDateTime");
+    DATETIMEV2("DATETIMEV2", "java.util.Date");
 
     final String dbType;
     final String javaType;

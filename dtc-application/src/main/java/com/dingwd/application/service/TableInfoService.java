@@ -4,7 +4,6 @@ import com.dingwd.application.service.file.FileGetSavePathService;
 import com.dingwd.domain.var.Field;
 import com.dingwd.domain.var.TableInfo;
 import com.dingwd.infrastructure.table.entity.FieldEntity;
-import com.dingwd.infrastructure.table.repository.TableRepository;
 import com.dingwd.infrastructure.table.service.TableService;
 import com.dingwd.infrastructure.utils.stringutils.MyStringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +41,7 @@ public class TableInfoService {
                     try {
                         TableInfo table = new TableInfo();
                         List<Field> columns = this.getColumns(tableName);
-                        columns.stream().forEach((each) -> {
+                        columns.forEach((each) -> {
                             if ("PRI".equals(each.getKey())) {
                                 table.setPrimaryKey(each.getField());
                                 table.setPrimaryKeyCamel(MyStringUtils.underlineToHump(each.getField()));
@@ -55,7 +54,8 @@ public class TableInfoService {
                         table.setTableName(tableName);
                         table.setTableNameCamel(MyStringUtils.underlineToHump(tableTemp));
                         table.setTableNameFirstUpperCase(MyStringUtils.upperFirstWord(table.getTableNameCamel()));
-                        table.setTableComment(tableMapper.getTableComment(tableName));
+                        String comment = tableMapper.getTableComment(tableName);
+                        table.setTableComment(StringUtils.hasText(comment) ? comment : tableName);
                         table.setFields(columns);
                         tables.add(table);
                     } catch (Exception e) {
@@ -103,7 +103,10 @@ public class TableInfoService {
             field.setType(each.getColumnType());
             field.setKey(each.getColumnKey());
             field.setExtra(each.getExtra());
-            field.setComment(each.getColumnComment());
+            field.setComment(StringUtils.hasText(each.getColumnComment()) ? each.getColumnComment() : each.getColumnName());
+            field.setIsNullable(StringUtils.hasText(each.getIsNullable()) ? each.getIsNullable() : "");
+            field.setColumnDefault(StringUtils.hasText(each.getColumnDefault()) ? each.getColumnDefault() : "");
+            field.setCollationName(StringUtils.hasText(each.getCollationName()) ? each.getCollationName() : "");
             fields.add(field);
         });
         return fields;

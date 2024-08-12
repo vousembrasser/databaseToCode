@@ -12,7 +12,7 @@ import java.io.Serializable;
  * <p>Description: ${tableInfo.tableComment}</p>
  *
  * @author : ${author}
- * @date : ${time}
+ * @since : ${time}
  * @version 1.0
  */
 
